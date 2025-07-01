@@ -2,118 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Spine JSON Viewer</title>
+  <title>Spine JSON & Animations Viewer</title>
   <style>
-/* Base styles */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
-  margin: 0;
-  padding: 20px;
-  line-height: 1.6;
-}
+    /* Base styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
 
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: #2c3e50;
-}
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #2c3e50;
+    }
 
-/* Textarea */
-#jsonInput {
-  width: 100%;
-  height: 200px;
-  font-family: 'Source Code Pro', monospace;
-  font-size: 0.9rem;
-  padding: 12px;
-  border: 1px solid #ccd0d5;
-  border-radius: 6px;
-  background-color: #fff;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-  resize: vertical;
-}
+    /* Textarea */
+    #jsonInput {
+      width: 100%;
+      height: 200px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9rem;
+      padding: 12px;
+      border: 1px solid #ccd0d5;
+      border-radius: 6px;
+      background-color: #fff;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      resize: vertical;
+    }
 
-/* Button */
-#parseBtn {
-  display: block;
-  margin: 16px auto;
-  padding: 10px 24px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-#parseBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
+    /* Button */
+    #parseBtn {
+      display: block;
+      margin: 16px auto;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #parseBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
 
-/* Output container */
-#output {
-  margin-top: 20px;
-}
+    /* Output container */
+    #output {
+      margin-top: 20px;
+    }
 
-/* Skin card */
-.skin {
-  background-color: #fff;
-  border-radius: 8px;
-  border: 1px solid #e0e4e8;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
+    /* Skin card */
+    .skin {
+      background-color: #fff;
+      border-radius: 8px;
+      border: 1px solid #e0e4e8;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
 
-/* Skin title */
-.skin > h2 {
-  font-size: 1.25rem;
-  margin: 0 0 0.75rem;
-  color: #34495e;
-}
+    /* Skin title */
+    .skin > h2 {
+      font-size: 1.25rem;
+      margin: 0 0 0.75rem;
+      color: #34495e;
+    }
 
-/* Slot and attachment lists */
-.slot {
-  margin-left: 16px;
-  font-weight: 600;
-  color: #2c3e50;
-}
-.attachment {
-  margin-left: 32px;
-  font-style: italic;
-  color: #555;
-}
+    /* Slot and attachment lists */
+    .slot {
+      margin-left: 16px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .attachment {
+      margin-left: 32px;
+      font-style: italic;
+      color: #555;
+    }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
-  #jsonInput {
-    height: 150px;
-  }
-  #parseBtn {
-    width: 100%;
-  }
-}
+    /* Animations list */
+    .animations {
+      background: #e9eff5;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    .animations h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+      color: #34495e;
+    }
+    .animations ul {
+      list-style: disc inside;
+      margin: 0;
+      padding-left: 20px;
+    }
 
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      #jsonInput {
+        height: 150px;
+      }
+      #parseBtn {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <h1>Spine JSON “skins” Viewer</h1>
+  <h1>Spine JSON & Animations Viewer</h1>
 
-  <!-- Paste your JSON here -->
   <textarea id="jsonInput" placeholder="Paste your spine .json here…"></textarea>
-  <br/>
+  <button id="parseBtn">Show Skins & Animations</button>
 
-  <button id="parseBtn">Show Skins</button>
-
-  <!-- Output goes here -->
   <div id="output"></div>
 
   <script>
@@ -129,22 +142,39 @@ h1 {
         return;
       }
 
+      // Show animations
+      if (data.animations && typeof data.animations === 'object') {
+        const animDiv = document.createElement('div');
+        animDiv.className = 'animations';
+        const h2 = document.createElement('h2'); h2.textContent = 'Animations:';
+        animDiv.appendChild(h2);
+
+        const ul = document.createElement('ul');
+        Object.keys(data.animations).forEach(animName => {
+          const li = document.createElement('li');
+          li.textContent = animName;
+          ul.appendChild(li);
+        });
+        animDiv.appendChild(ul);
+        out.appendChild(animDiv);
+      }
+
+      // Show skins
       if (!data.skins || !Array.isArray(data.skins)) {
-        out.textContent = '⚠️ No "skins" array found in this JSON.';
+        const warn = document.createElement('div');
+        warn.textContent = '⚠️ No "skins" array found in this JSON.';
+        out.appendChild(warn);
         return;
       }
 
-      // For each skin
       data.skins.forEach(skin => {
         const skinDiv = document.createElement('div');
         skinDiv.className = 'skin';
 
-        // Skin name
         const h2 = document.createElement('h2');
         h2.textContent = `Skin: ${skin.name}`;
         skinDiv.appendChild(h2);
 
-        // Attachments object: { slotName: { attachmentName: { … } } }
         const attachments = skin.attachments || {};
         Object.keys(attachments).forEach(slotName => {
           const slotDiv = document.createElement('div');
@@ -152,7 +182,6 @@ h1 {
           slotDiv.textContent = `Slot: ${slotName}`;
           skinDiv.appendChild(slotDiv);
 
-          // For each attachment under that slot
           const atts = attachments[slotName];
           Object.keys(atts).forEach(attName => {
             const attDiv = document.createElement('div');
